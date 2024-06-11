@@ -19,5 +19,5 @@ operations = [
 ]
 
 if __name__ == "__main__":
-    print(filter_by_state(actions, state="CANCELED"))
-    print(filter_by_date(actions))
+    print(filter_by_state(operations, state="CANCELED"))
+    print(filter_by_date(operations))
