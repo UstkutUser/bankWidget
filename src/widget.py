@@ -3,17 +3,15 @@ from src.masks import mask_card, mask_account
 
 def mask_card_and_account(acc_number: str) -> str:
     """Возвращет исходную строку с замаскированным номером карты/счета"""
-    pay_system = ("Visa", "Maestro", "MasterCard")
-    for i in acc_number.split():
-        if i in pay_system:
-            card_name = " ".join([i for i in acc_number.split() if i.isalpha()])
-            card_number = mask_card(
-                "".join([i for i in acc_number.split() if i.isdigit()])
-            )
-            return f"{card_name + " " + card_number}"
-        elif i == "Счет":
-            account = "".join([i for i in acc_number if i.isdigit()])
-            return f"Счет {mask_account(account)}"
+    if acc_number.lower().startswith("счет"):
+        account = "".join([i for i in acc_number if i.isdigit()])
+        return f"Счет {mask_account(account)}"
+    else:
+        card_name = " ".join([i for i in acc_number.split() if i.isalpha()])
+        card_number = mask_card(
+            "".join([i for i in acc_number.split() if i.isdigit()])
+        )
+        return f"{card_name + " " + card_number}"
 
 
 def get_data(date_and_time: str) -> str:
