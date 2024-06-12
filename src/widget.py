@@ -8,9 +8,7 @@ def mask_card_and_account(acc_number: str) -> str:
         return f"Счет {mask_account(account)}"
     else:
         card_name = " ".join([i for i in acc_number.split() if i.isalpha()])
-        card_number = mask_card(
-            "".join([i for i in acc_number.split() if i.isdigit()])
-        )
+        card_number = mask_card("".join([i for i in acc_number.split() if i.isdigit()]))
         return f"{card_name + " " + card_number}"
 
 
