@@ -9,4 +9,3 @@ def filter_by_state(operations: list, state: Optional[str] = "EXECUTED") -> list
 def filter_by_date(operations: list, descending: bool = True) -> list:
     """Фильтрует транзакции по дате"""
     return sorted(operations, key=lambda date: date.get("date"), reverse=descending)
-
