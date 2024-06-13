@@ -40,3 +40,8 @@ def operations_list():
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     )
     return client_operations
+
+
+@pytest.fixture
+def data():
+    return "2018-07-11T02:26:18.671407"
