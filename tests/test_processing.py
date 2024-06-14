@@ -203,11 +203,11 @@ def test_filter_by_date(my_list, descending, expected):
         )
     ],
 )
-def test_filter_by_date(my_list, descending, expected):
+def test_filter_by_date_reverse(my_list, descending, expected):
     assert filter_by_date(my_list, False) == expected
 
 
-def test_filter_by_state(operations_list):
+def test_filter_by_state_exec(operations_list):
     assert filter_by_state(operations_list, "EXECUTED") == (
         [
             {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -220,7 +220,7 @@ def test_filter_by_state(operations_list):
     )
 
 
-def test_filter_by_state(operations_list):
+def test_filter_by_state_canc(operations_list):
     assert filter_by_state(operations_list, "CANCELED") == (
         [
             {
