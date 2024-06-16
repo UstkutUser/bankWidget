@@ -1,17 +1,12 @@
+from typing import Iterator, Generator, Dict
+
 from src.data import transactions
 
 
-def filter_by_currency(transactions: list, currency: str = "USD"):
+def filter_by_currency(transactions: list[Dict], currency: str = "USD") -> Generator[Dict[str, object], None, None]:
     """Возвращает итератор, который выдает по очереди операции в указанной валюте"""
-    return filter(
-        lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions
-    )
+    for transaction in transactions:
+        if transaction["operationAmount"]["currency"]["code"] == currency:
+            yield transaction
 
 
-usd_transactions = filter_by_currency(transactions)
-
-try:
-    for _ in range(len(transactions)):
-        print(next(usd_transactions)["id"])
-except StopIteration:
-    pass
