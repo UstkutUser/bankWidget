@@ -1,4 +1,4 @@
-from typing import Generator, Dict
+from typing import Dict, Generator
 
 
 def filter_by_currency(
@@ -17,3 +17,8 @@ def transaction_descriptions(
     for transaction in transactions:
         yield transaction["description"]
 
+
+def card_number_generator(start, stop):
+    for i in range(start, stop + 1):
+        num = (16 - len(str(i))) * "0" + str(i)
+        yield " ".join(num[i : i + 4] for i in range(0, 16, 4))
