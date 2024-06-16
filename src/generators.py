@@ -1,4 +1,4 @@
-from src.transactions import transactions
+from src.data import transactions
 def filter_by_currency(transactions: list, currency: str) -> iter:
     """Возвращает итератор, который выдает по очереди операции в указанной валюте"""
     return filter(lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions)
