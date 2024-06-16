@@ -19,6 +19,7 @@ def transaction_descriptions(
 
 
 def card_number_generator(start, stop):
+    """Генерирует номера банковских карт"""
     for i in range(start, stop + 1):
         num = (16 - len(str(i))) * "0" + str(i)
         yield " ".join(num[i : i + 4] for i in range(0, 16, 4))
