@@ -1,10 +1,14 @@
 from src.data import transactions
-def filter_by_currency(transactions: list, currency: str) -> iter:
+
+
+def filter_by_currency(transactions: list, currency: str = "USD"):
     """Возвращает итератор, который выдает по очереди операции в указанной валюте"""
-    return filter(lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions)
+    return filter(
+        lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions
+    )
 
 
-usd_transactions = filter_by_currency(transactions, "USD")
+usd_transactions = filter_by_currency(transactions)
 
 try:
     for _ in range(len(transactions)):
