@@ -1,7 +1,12 @@
 def mask_card(card_number: str) -> str:
     """Функция максирует номер карты"""
     masked_number = card_number[:6] + len(card_number[6:-4]) * "*" + card_number[-4:]
-    return " ".join([masked_number[i : i + 4] for i in range(0, len(card_number), len(card_number) // 4)])
+    return " ".join(
+        [
+            masked_number[i : i + 4]
+            for i in range(0, len(card_number), len(card_number) // 4)
+        ]
+    )
 
 
 def mask_account(bank_aсcount: str) -> str:
