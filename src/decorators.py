@@ -4,7 +4,6 @@ from typing import Any, Callable
 
 def log(filename="") -> Callable:
     """Логирует в файл или консоль вызов функций-обработчиков и результаты их работы"""
-
     def wrapper(function: Callable) -> Callable:
         @wraps(function)
         def inner(*args: Any, **kwargs: Any) -> Any:
