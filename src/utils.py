@@ -46,19 +46,25 @@ def get_transaction_amount(transaction: Dict) -> float:
     if not transaction:
         return 0.0
     elif "operationAmount" in transaction:
-
-        return transaction["operationAmount"].get("amount")
+        currency = transaction["operationAmount"].get("currency").get("code")
+        if currency == "RUB":
+            return transaction["operationAmount"].get("amount")
+        elif currency == "USD" or currency == "EUR":
+            result = currency_conversion(transaction["operationAmount"].get("amount"), currency)
+            return result
 
 
 if __name__ == "__main__":
-    get_transaction_amount(
-        {
-            "id": 441945886,
-            "state": "EXECUTED",
-            "date": "2019-08-26T10:50:58.294041",
-            "operationAmount": {
-                "amount": "31957.58",
-                "currency": {"name": "руб.", "code": "RUB"},
-            },
-        }
+    print(
+        get_transaction_amount(
+            {
+                "id": 41428829,
+                "state": "EXECUTED",
+                "date": "2019-07-03T18:35:29.512364",
+                "operationAmount": {
+                    "amount": "8221.37",
+                    "currency": {"name": "USD", "code": "USD"},
+                },
+            }
+        )
     )
