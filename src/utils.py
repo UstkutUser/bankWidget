@@ -4,11 +4,11 @@ from typing import Dict, Any
 from src.external_api import currency_conversion
 
 """
-Реализуйте функцию, которая принимает на вход путь до JSON-файла и 
-возвращает список словарей с данными о финансовых транзакциях. Если файл 
-пустой, содержит не список или не найден, функция возвращает пустой список. 
-Функцию поместите в модуль utils. 
-Файл с данными о финансовых транзациях operations.json поместите в 
+Реализуйте функцию, которая принимает на вход путь до JSON-файла и
+возвращает список словарей с данными о финансовых транзакциях. Если файл
+пустой, содержит не список или не найден, функция возвращает пустой список.
+Функцию поместите в модуль utils.
+Файл с данными о финансовых транзациях operations.json поместите в
 директорию data/ в корне проекта."""
 
 
@@ -34,12 +34,12 @@ def get_transactions_from_file(path: str) -> list[Dict] | Any:
 #     )
 #     print(transactions)
 
-"""Реализуйте функцию, которая принимает на вход транзакцию 
-и возвращает сумму транзакции (amount) в рублях, тип данных — 
-float. Если транзакция была в USD или EUR, происходит обращение 
-к внешнему API для получения текущего курса валют и конвертации 
-суммы операции в рубли. Для конвертации валюты воспользуйтесь 
-Exchange Rates Data API: https://apilayer.com/exchangerates_data-api. 
+"""Реализуйте функцию, которая принимает на вход транзакцию
+и возвращает сумму транзакции (amount) в рублях, тип данных —
+float. Если транзакция была в USD или EUR, происходит обращение
+к внешнему API для получения текущего курса валют и конвертации
+суммы операции в рубли. Для конвертации валюты воспользуйтесь
+Exchange Rates Data API: https://apilayer.com/exchangerates_data-api.
 Функцию конвертации поместите в модуль external_api."""
 
 
@@ -52,7 +52,9 @@ def get_transaction_amount(transaction: Dict) -> float:
         if currency == "RUB":
             return transaction["operationAmount"].get("amount")
         elif currency == "USD" or currency == "EUR":
-            result = currency_conversion(transaction["operationAmount"].get("amount"), currency)
+            result = currency_conversion(
+                transaction["operationAmount"].get("amount"), currency
+            )
             return float(result)
     return 0.0
 
