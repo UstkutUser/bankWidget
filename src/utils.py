@@ -1,6 +1,8 @@
 import json
 from typing import Dict, Any
 
+from src.external_api import currency_conversion
+
 """
 Реализуйте функцию, которая принимает на вход путь до JSON-файла и 
 возвращает список словарей с данными о финансовых транзакциях. Если файл 
@@ -26,11 +28,11 @@ def get_transactions_from_file(path: str) -> list[Dict] | Any:
     return transactions_data
 
 
-if __name__ == "__main__":
-    transactions = get_transactions_from_file(
-        "c:\\python\\bankWidget\\data\\operations.json"
-    )
-    print(transactions)
+# if __name__ == "__main__":
+#     transactions = get_transactions_from_file(
+#         "c:\\python\\bankWidget\\data\\operations.json"
+#     )
+#     print(transactions)
 
 """Реализуйте функцию, которая принимает на вход транзакцию 
 и возвращает сумму транзакции (amount) в рублях, тип данных — 
@@ -51,7 +53,8 @@ def get_transaction_amount(transaction: Dict) -> float:
             return transaction["operationAmount"].get("amount")
         elif currency == "USD" or currency == "EUR":
             result = currency_conversion(transaction["operationAmount"].get("amount"), currency)
-            return result
+            return float(result)
+    return 0.0
 
 
 if __name__ == "__main__":

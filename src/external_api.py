@@ -18,5 +18,5 @@ def currency_conversion(transaction_amount: float, currency: str) -> float:
     return data_json["result"]
 
 
-if __name__ == '__main__':
-    print(currency_conversion(1.0, "EUR"))
+# if __name__ == '__main__':
+#     print(currency_conversion(1.0, "EUR"))
