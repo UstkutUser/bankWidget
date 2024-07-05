@@ -6,7 +6,7 @@ from src.generators import (
     transaction_descriptions,
     card_number_generator,
 )
-from src.data import transactions
+from data.transactions_for_src import transactions
 
 
 @pytest.mark.parametrize(
