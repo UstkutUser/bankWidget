@@ -1,0 +1,78 @@
+from unittest.mock import patch
+
+from src.utils import get_transaction_amount
+
+
+def test_get_transaction_amount():
+    """Тестирует возврат суммы транзакции в рублях"""
+    example = {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "operationAmount": {
+            "amount": "9824.07",
+            "currency": {
+                "name": "RUB",
+                "code": "RUB",
+            },
+        },
+    }
+    assert get_transaction_amount(example) == "9824.07"
+
+
+@patch("src.utils.currency_conversion")
+def test_currency_conversion(mocked_conversion):
+    mocked_conversion.return_value = 10
+    result = get_transaction_amount(
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "10",
+                "currency": {
+                    "name": "RUB",
+                    "code": "RUB",
+                },
+            },
+        }
+    )
+    assert result == "10"
+
+
+def test_currency_conversion_called_once():
+    """Проверяет, была ли функция вызвана с определенными аргументами"""
+    with patch("src.utils.currency_conversion") as curr_conv:
+        curr_conv.return_value = 100
+        transaction = {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "10",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702",
+        }
+        assert get_transaction_amount(transaction) == 100
+        curr_conv.assert_called_once_with("10", "USD")
+
+
+def test_get_transaction_amount_without_amount():
+    """Проверяет, если в транзакции нет суммы"""
+    transaction = {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "description": "Перевод организации",
+        "from": "Счет 75106830613657916952",
+        "to": "Счет 11776614605963066702",
+    }
+    assert get_transaction_amount(transaction) == 0.0
+
+
+def test_get_transaction_amount_empty_transaction():
+    """Проверяет, если транзакции нет"""
+    assert get_transaction_amount("") == 0.0
